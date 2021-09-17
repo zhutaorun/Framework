@@ -8,12 +8,17 @@ public class UIB : IBindableUI
 {
     #region 控件绑定变量声明，自动生成请勿手改
     [ControlBinding]
-    private Button btn_OK;
+    private Button[] ffff;
     [ControlBinding]
-    private Text[] txt_group;
+    private Dropdown xxxxx;
     [ControlBinding]
-    private Dropdown sel_country;
+    private Text Num;
+
+    [SubUIBinding]
+    private UIControlData SubUIA;
     #endregion
+
+
 
 
 
