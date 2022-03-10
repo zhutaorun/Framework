@@ -1,0 +1,9 @@
+C:\Users\zhutao\source\repos\MyRandomDLL\MyRandomDLL\bin\Debug\netstandard2.0\MyRandomDLL.deps.json
+C:\Users\zhutao\source\repos\MyRandomDLL\MyRandomDLL\bin\Debug\netstandard2.0\MyRandomDLL.dll
+C:\Users\zhutao\source\repos\MyRandomDLL\MyRandomDLL\bin\Debug\netstandard2.0\MyRandomDLL.pdb
+C:\Users\zhutao\source\repos\MyRandomDLL\MyRandomDLL\obj\Debug\netstandard2.0\MyRandomDLL.csprojAssemblyReference.cache
+C:\Users\zhutao\source\repos\MyRandomDLL\MyRandomDLL\obj\Debug\netstandard2.0\MyRandomDLL.AssemblyInfoInputs.cache
+C:\Users\zhutao\source\repos\MyRandomDLL\MyRandomDLL\obj\Debug\netstandard2.0\MyRandomDLL.AssemblyInfo.cs
+C:\Users\zhutao\source\repos\MyRandomDLL\MyRandomDLL\obj\Debug\netstandard2.0\MyRandomDLL.csproj.CoreCompileInputs.cache
+C:\Users\zhutao\source\repos\MyRandomDLL\MyRandomDLL\obj\Debug\netstandard2.0\MyRandomDLL.dll
+C:\Users\zhutao\source\repos\MyRandomDLL\MyRandomDLL\obj\Debug\netstandard2.0\MyRandomDLL.pdb

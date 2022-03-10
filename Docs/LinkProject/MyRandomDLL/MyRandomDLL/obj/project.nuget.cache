@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "3xnsmyClqnYqE2C5v94NIPAcAQFTFdbptm4XF1I9FBdvv1rMBT1sQ8O1Uh4xEGxF8rnHss8fm/7w72rQOYBNpA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\zhutao\\source\\repos\\MyRandomDLL\\MyRandomDLL\\MyRandomDLL.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\zhutao\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\zhutao\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
