@@ -4,30 +4,31 @@ using UnityEngine;
 
 namespace GameFrame
 {
+
     public interface IUpdate
     {
         void Update();
     }
-
 
     public interface ILateUpdate
     {
         void LateUpdate();
     }
 
-
     public interface IFixedUpdate
     {
         void FixedUpdate();
     }
-
-
-    public class ManagerBase
+    /// <summary>
+    /// 管理器基类
+    /// </summary>
+    public class ManagerBase 
     {
-        public bool IsInitialize { get; private set; }
+       public bool IsInitialize { get; private set; }
 
         public ManagerBase()
         {
+
         }
 
         public virtual void Initialize()
@@ -35,16 +36,14 @@ namespace GameFrame
             IsInitialize = true;
         }
 
-        public void Release()
+        public void Destroy()
         {
-            OnRelease();
+            OnDestroy();
         }
 
-        public virtual void OnRelease()
+        public virtual void OnDestroy()
         {
 
         }
     }
-    
 }
-

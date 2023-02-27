@@ -7,7 +7,7 @@ using System.Reflection;
 #if UNITY_EDITOR
 using UnityEditor;
 
-namespace SDGame.UITools
+namespace GameFrame.UITools
 {
     public class UIBindingPrefabSaveHelper : UnityEditor.AssetModificationProcessor
     {

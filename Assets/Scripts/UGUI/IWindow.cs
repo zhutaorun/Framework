@@ -46,7 +46,7 @@ public enum UI_TYPE : uint
     _END,
 }
 
-public interface IWindow : SDGame.UITools.IBindableUI
+public interface IWindow : GameFrame.UITools.IBindableUI
 {
     UI_TYPE GetUIType();
     void Open();

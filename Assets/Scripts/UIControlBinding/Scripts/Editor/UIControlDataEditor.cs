@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using System;
 
-namespace SDGame.UITools
+namespace GameFrame.UITools
 {
     [CustomEditor(typeof(UIControlData))]
     public class UIControlDataEditor : Editor

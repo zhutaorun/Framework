@@ -1,0 +1,43 @@
+syntax = "proto3";
+package bullet_config;
+
+import "skillnew_config.proto";
+
+message bullet_data
+{
+    optional uint32 Id = 1;
+    optional string Name = 2;//子弹名
+    optional EBulletDirType DirType = 3;//方向类型
+    optional uint32 EffectId = 4;//子弹特效
+    optional bool EndWithCollision = 5;  //是否遇到碰撞结束
+    optional uint32 EndEffectId = 6;//子弹结束特效
+    optional int32 BulletRangeValue = 7;  //飞行范围
+    optional int32 BulletRediusValue = 8;    //伤害半径
+    optional int32 BulletSpeedValue = 9;//水平初速度
+    optional int32 SpecialBulletTime = 10;//特殊子弹
+    optional int32 SuperAttack = 11;//超级盔甲攻击值
+    optional int32 OutputRate = 12;//输出间隔
+    optional bool AutoTarget = 13;//自动选择目标，勾选情况下会锁定目标
+    optional int32 DirSpeed = 14;//方向灵敏度100度,表示1度每帧,锁定目标时需要配置
+    optional bool LockTarget = 15;//锁定目标
+    optional bool OnFloor = 16;//贴着地表
+    optional bool Is3D = 17;//是否落地结束，暂时没有处理
+    optional int32 VerticalAcc = 18;//垂直加速度
+    optional int32 HorizontalAcc = 19;//水平加速度
+    optional bool ForceLookForward = 20;//强制朝向运动方向
+    repeated skillnew_config.OutputItem BulletOutputs = 21;//子弹输出
+}
+
+enum EBulletDirType
+{
+    Default = 0;//默认角色正前方
+    LookDir = 1;//锁定标志锁定方向
+    TargetDir = 2;//当亲目标所在方向
+}
+
+message container
+{
+	optional string name = 1;
+	optional int32 build_id = 2;
+	map<int32,bullet_data> infos = 3;
+}

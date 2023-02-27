@@ -1,0 +1,48 @@
+syntax = "proto3";
+package effect_config;
+
+import "skillnew_config.proto";
+
+message effect_data
+{
+    optional uint32 Id = 1;//特效id
+    optional string Name = 2;//特效名
+    optional string Path = 3;//特效路径
+    optional float Scale = 4;//特效缩放
+    optional float LifeTime = 5;//特效生命
+    optional bool OnEntity = 6;//是否跟随运动
+    optional bool NeedHight = 7;//是否需要跟随角色高度
+    optional string PosName = 8;//挂点
+    optional bool NoRepeatAdd = 9;//不重复叠加
+    optional bool AdiustSkillHeight = 10; //调节技能时高度
+    optional bool ScaleWithUnit = 11;//根据角色缩放
+    optional bool ShowGroupDiff = 12;//阵营颜色区分
+    optional bool HasTrail = 13;//是否查找拖尾
+    optional uint32 DeadLeftTime = 14;//特效end后残留时间
+    optional bool NotRemoveOnSkillOver = 15; //技能结束后不移除
+    optional bool RemoveOnSkillActionOver =16;//技能动作结束移除
+    optional int32 Priorty = 17;//同一顿优先级越小越高
+    repeated skillnew_config.EOverType EffectOverTypes = 18;//特效结束类型(至少一个)
+    repeated skillnew_config.EEntityGameEvent EffectEndGameEvents = 19;//特效结束事件
+}
+
+enum EAttachPos
+{
+    dummy_none = 0;
+    dummy_top = 1;
+    dummy_bottom =2;
+    dummy_center =3;
+    dummy_lhand=4;
+    dummy_rhand= 5;
+    dummy_body = 6;
+    dummy_wings = 7;
+    dummy_head = 8;
+}
+
+
+message container
+{
+	optional string name = 1;
+	optional int32 build_id = 2;
+	map<int32,effect_data> infos = 3;
+}

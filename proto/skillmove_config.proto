@@ -1,0 +1,63 @@
+syntax = "proto3";
+package skillmove_config;
+
+import "skillnew_config.proto";
+
+enum EMoveRelayType
+{
+    MoveRelayType_None = 0;
+    SkillCmd_Pos = 1;//施法角色选定的坐标
+    SkillCmd_Dir = 2;//施法角色选定的方向
+    SkillCmd_Target =3;//施法角色选定的目标
+    SkillCmd_Dir_Opp = 4;//施法角色选定的方向反方向
+
+    TriggerPosOp = 5; //触发时位置反方向
+    TriggerDir = 6;//触发时方向
+    TriggerPos =7;//触发时位置
+    TriggerEntity = 8;//触发者位置
+    TriggerDirOp = 9;//触发方向的反向
+
+    TrapPos =10;//陷阱位置
+    TrapPosOp =11;//用当前的不科学，先注释掉
+    CurPos =12;//当前坐标
+    CurTriggerPos=13;//当前触发者位置
+    CurTriggerDir =14;//当前触发者方向
+}
+
+enum EMoveSpeedChangeType
+{
+    Uniform = 0;//勾速的
+    Accelerate =1; //加速的
+}
+enum EMoveCheckBlock
+{
+    MoveCheckBlock_None = 0;
+    Always =1;//-直检测阻挡
+    OnlyDest = 2;//只检测终点是否阻挡
+}
+
+message skillmove_data
+{
+    optional uint32 ld = 1;
+    optional EMoveRelayType MoveRelayType = 2;//移动终点或方向依赖参数
+    optional EMoveSpeedChangeType MoveSpeedChangeType = 3; //移动速度变化
+    optional bool KeepDir = 4;////保持方向不变
+    optional EMoveCheckBlock CheckBlock = 5;//检测阻挡
+    optional bool IsFly = 6;//是否飞行
+    optional bool IsFlash = 7;//是否闪现
+    optional int32 FlyHeight = 8;  //飞行高度
+    optional skillnew_config.ESkillRangeType Range = 9;//距离调用值
+    optional skillnew_config.ESkillRangeType With = 10;//宽度调用值
+    optional int32 RangeValue = 11;//自定义距离
+    //optional int32 WidthValue ;//自定义宽度
+    optional skillnew_config.ESkillMoveSpeedType MoveSpeedType= 12;//速度调用值 
+    optional int32 MoveSpeedValue = 13;//自定义速度厘米每秒
+    optional int32 VerticalTime = 14;//垂直位移总时间毫秒
+}
+
+message container
+{
+	optional string name = 1;
+	optional int32 build_id = 2;
+	map<int32,skillmove_data> infos = 3;
+}

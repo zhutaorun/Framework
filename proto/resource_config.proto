@@ -1,0 +1,54 @@
+syntax = "proto3";
+package resource_config;
+
+enum avatar_type
+{
+	avatar_begin = 0;
+	face = 1;//脸
+	head = 2;//头
+	upper_body = 3;//上半身
+	under_body = 4;//下半身
+	weapon1= 5;//右手武器(头)
+	shield =6;//左手盾牌
+	rider = 7;//坐骑
+	wing = 8;//翅膀
+	weapon2=9;//右手武器(柄)
+	pet = 10;//宠物
+}
+
+message model_path
+{
+	optional string desc = 1;//注释用
+	optional avatar_type avatar = 2;//外显类型
+	optional string path = 3;//外显路径
+	optional vec3 uioffset = 4;//UI界面偏移
+	optional float uiscale = 5;//UI界面大小处理
+	optional vec3 sceneoffset = 6;//场景中偏移
+	optional float scenescale = 7;//场景中大小处理
+	optional vec3 scenerot = 8;//场景中旋转
+	optional vec3 uisecoffset = 9;//UI界面2偏移
+	optional float uisecscale = 10;//UI界面2大小处理
+	optional bool isHideWing = 11;//是否隐藏翅膀(部分坐骑骑着时不显示)
+}
+
+message vec3
+{
+	optional float x = 1;
+	optional float y = 2;
+	optional float z = 3;
+}
+
+message resource_data
+{
+	optional int32 meta_id =1;//获取路径直接对应item data表的id
+	optional string desc = 2;//注释
+	optional string main_path = 3;//主路径
+	optional string sub_path = 4;//支路径主要为:图集里的spriteName
+	repeated model_path models = 5;//外显路径
+}
+message container
+{
+	optional string name = 1;
+	optional int32 build_id = 2;
+	map<int32,resource_data> infos = 3;
+}

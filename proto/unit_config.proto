@@ -1,0 +1,49 @@
+syntax = "proto3";
+package unit_config;
+
+import "resource_config.proto";
+
+enum UnitType
+{
+    UnitType_BEGIN = 0;
+    Pc= 1;//玩家
+    Npc = 2;//NPC
+    Monster = 3;//普通怪
+}
+
+message avatar_sub
+{
+    optional resource_config.avatar_type avater = 1;
+    optional string modelPath =2;
+}
+
+enum JobType
+{
+    JobType_BEGIN = 0;
+    Warrior = 1;//战士
+    Archer = 2;//弓箭手
+    Sorceress = 3;//魔法师
+    Cleric = 4;//牧师
+    Academic = 5;//学者
+    All = 6;
+}
+
+message unit_data
+{
+    optional int32 Id = 1;
+    optional string name = 2;
+    optional UnitType UnitType = 3;
+    optional JobType job = 4;//职业
+    optional string modelPath = 5;//路径
+    repeated int32 skills = 6;//技能列表
+    optional string AnimationPath = 7;//动画路径
+    repeated avatar_sub default_avatar = 8;//默认的外显
+    optional float scale = 9;//大小
+}
+
+message container
+{
+	optional string name = 1;
+	optional int32 build_id = 2;
+	map<int32,unit_data> infos = 3;
+}

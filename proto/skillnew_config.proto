@@ -1,0 +1,359 @@
+syntax = "proto3";
+
+package skillnew_config;
+
+message FrameEvent
+{
+    optional int32 EventTimePoint = 1;  //触发时间(帧)
+    optional EFrameEventType EventType = 2;//事件类型
+    optional int32 FrameEventId = 3;//事件ID
+    optional EEventTriggerCondition TriggerEventCondition = 4;//触发条件
+    repeated EventDamage DamageData = 5;//伤害配置
+    optional Global_Int_Vector3 Offset = 6;//特效，子弹，陷阱偏移
+    optional int32 Angle = 7;//角度偏移
+    optional bool EffectFixPosition = 8;//特效固定位置释放
+    optional bool OnlyMainRole = 9;//是否只有mainrole生效
+}
+
+enum EFrameEventType
+{
+    EventTypeNone = 0;
+    SendBullet = 1;//子弹|发射
+    DirectHurt = 2;//直接伤害
+    SetTrap = 3;//陷阱
+    SetBuff = 4;//buff
+    Effect = 5;//显示特效
+    MapItem = 6;//物件
+    ParabolaBullet = 7;//子弹|平抛子弹
+    UpParabolaBullet = 8;//子弹|上抛子弹
+    PickAlarm = 9;//显示预警
+    Sound = 10;//声音
+    CameraShake  = 11;//摄像机|相机抖动
+    ChangeDir = 12;//转向状态
+    ChangeSuperDefence = 13;//超级盔甲防御变更
+    CameraBlur = 14;//摄像机|普通模糊
+    ChangeBeHitState = 15;//被击状态改变
+    CameraBlurLow = 16;//摄像机|低模糊
+    CameraBlurHigh = 17;//摄像机|高模糊
+    CameraZoom = 18;    //摄像机|缩放
+    SetConnect = 19;    //设置连接
+    PushTargets = 20;   //推怪
+    CameraFollowHeight = 21;//摄像机|高度跟随
+    SetMultipleTargetBullet= 22;//子弹|多个墓壁
+    SetFly = 23;            //设置飞行（1:0飞0：落地）
+    SendCircleBullet = 24;  //子弹|环形子弹
+    LockCameraRotate = 25;  //摄像机|限制旋转
+    CameraHorizontalZoom = 26; //摄像机|水平缩放
+    CameraVerticalZoom = 27;//摄像机|垂直缩放
+    CreateEnergy = 28;//制造能量
+    CameraFollowWeaponX = 29;//摄像机|跟随武器X
+    CameraFollowWeaponY = 30;//摄像机|跟随武器Y
+    SetClientMove = 31; //客户端移动
+    Summmon = 32;   //召唤
+}
+//弓手闪避
+enum EEntityGameEvent
+{
+    GameEventNone = 0;
+    CurShieldOver = 1;//盾没有的时候
+    CurBuffStart = 2;//buff开始
+    CurBuffTimeOver =3;//当前buff时间结束
+    CurBuffTrigger = 4;//当前buff触发
+    CurBuffOver = 5;//buff结束
+    CurSkillOver = 6;//当前技能结束
+    CurSkillcDStart = 7;//当前技能cd开始
+    CurSkillstart = 8;//当前技能开始
+    CurSkillActStart = 9;//当前技能动作开始
+    CurSkillActOver = 10;//当前技能动作结束
+    CurEffectStart = 11;//当前特效开始
+    BuffMoveCmdOver = 12;//当前buff移动结束
+    UseAnySkill = 13;//便用了任意技能
+    BeHurt =14;//受到了伤害
+    HurtTarget = 15;//伤害了目标
+    ChoosedTarget =16;//选中了目标
+    BeDizz = 17;//被眩星
+    BeFrozen =18;//被冰冻
+    ChangeCurWeapon = 19;//改变当前武器
+    ChangeCurWeaponSlotltem = 20; //改变当前武器孔位道具
+    SkiliRunToBuffBreak = 21; //技能释放到可以眩晕打断的点
+    CurSkillBeforeSendBullet = 22;  //当前技能放子弹前
+    BeforeCurSkillStart = 23;//当前技能开始前
+    ChangeMainWeapon =24;//切换主武器
+    HpChange = 25;//血量改变
+    ParachutingBuff = 26;//素质广场buff
+    LeaveBoxRange = 27;//离开宝箱范围
+    MoveToPos =28;//移动到指定点
+    PlayerDie = 29;//角色死亡
+    MoveToWater = 30;//角色进入或离开水
+    PlayerCopyDie =31;//分身在外死亡
+    DirKeyDown =32;//方向键按下
+    ExistTillRemove = 33;
+    BeforeAddBuff =34;//添加buff的时候
+    BeforeAddTrap = 35;//添加trap的时候
+    BeforeAddBullet =36;//添加bullet的时候
+    BeforeSkillStart = 37;//技能开始前
+    CurSkillDamage= 38;//技能命中
+    BeforeHitMotion = 39;
+}
+
+enum EOverType
+{
+    EOverType_OnTimeOver = 0;//配置时间结束
+    EOverType_OnSelfBeTrigger = 1;//被触发
+    EOverType_OnDirKeyUp = 2;//方向键抬起
+    EOverType_OnUseskill = 3;//使用技能
+    EOverType_OnRemove = 4;//主动移除
+    EOverType_OnCurSkillover =5;//当前技能结束
+    EOverType_OnBeHitMotion = 6;//中了被击效果
+    EOverType_OnCheckAttrMore = 7;//检测属性高于(包括)
+    EOverType_OnCheckAttrLess = 8;///检测属性低于(包括)
+}
+
+message Global_Int_Vector3
+{
+    optional int32 X = 1;
+    optional int32 Y = 2;
+    optional int32 Z = 3;
+}
+
+enum EEventTriggerCondition
+{
+    ConditonNone = 0;
+    PlayersInAttackArea = 1;//范围内有玩家
+}
+
+message EventDamage
+{
+    optional int32 SuperAttack = 1; //超级盔甲攻击
+    optional eventpick_data EventPick = 2;//范围
+    repeated OutputItem Outputs = 3;//输出列表
+}
+enum ESkillMoveSpeedType
+{
+    MoveSpeedNone = 0;
+    MoveSpeed = 1;//技能属性moveSpeed
+}
+
+message eventpick_data
+{
+    optional int32 Id = 1;//
+    optional EPickShapType EventPickShap = 2;//选择目标AOE形状
+    optional string EventPickName = 3;//名字
+    optional int32 EventPickTargetMaxNum = 4;//选择目标最大个数
+    optional EPickType EventPickType = 5;//选择目标优先
+    optional ETargetType EventPickTargetType = 6;//目标类型
+    optional EPickCenterType EventPickCenterType = 7;//AOE中心类型
+    optional int32 EventCenterOffSetX = 8;//中心点偏移X cm
+    optional int32 EventCenterOffSetZ = 9;//中心点偏移Z cm
+    optional EPickDirType EventPickDirType = 10;//方向
+    optional int32 DirOffset = 11;//方向偏移角度
+    optional ESkillRangeType EventRangeWidth = 12;//矩形宽
+    optional ESkillRangeType EventRangeMinDistance = 13;//攻击最近范围 环小圆半径，扇形近点距离
+    optional ESkillRangeType EventRangeMaxDistance = 14;//攻击最远范围 圆、扇形的半径，矩形远边距离，环大圆半径
+    optional int32 EventRangeWidthValue = 15;//矩形宽cm(该值非0就用该值否则就用EventRangeWidth属性值)
+    optional int32 EventRangeMaxDistanceValue = 16;//攻击最远范围(该值非0就用该值否则用EventRangeMaxDitsance属性值)
+    optional int32 EventRangeMinDistanceValue = 17;//攻击最近范围(该值非0就用该值否则用EventRangeMinDitsance属性值)
+    optional int32 EventAngleStart = 18;//开始角度
+    optional int32 EventAngleEnd = 19;//结束角度
+    optional bool IgnoreCheckY = 20;//忽略检测高度Y
+    optional ECheckYType EventCheckYType = 21;//检测Y的类型
+    optional int32 CheckYRangeValue = 22;//高度范围
+}
+
+enum EPickShapType
+{
+    ShapNone =0;//
+    Circle = 1;//圆形
+    RectRangle = 2;//矩形
+    Sector=3;//扇形
+}
+
+enum ETargetType
+{
+    TargetNone = 0;//不需要目标
+    Friend = 1;//友方
+    Enemy = 2;//敌方
+    FriendExcludeMe = 3;//友方不包含自己
+    EnemyPlayer = 4;//敌方玩家
+}
+
+enum EPickType
+{
+    MinDis = 0;//优先最近
+    MinBlood = 1;//优先血量最少
+    Random = 2;//随机
+    Lock = 3;//当前锁定目标
+}
+
+enum EPickCenterType
+{
+    SelfPos = 0;//自身坐标为中心
+    LockTargetPos = 1;//锁定目标为中心
+    CmdPos = 2;//玩家选择的坐标为中心
+}
+
+enum EPickDirType
+{
+    SelfDir = 0;//自身方向
+    TargetDir = 1;//目标方向
+    CmdDir = 2;//玩家选择方向
+}
+
+enum ESkillRangeType
+{
+    RangeTypeNone = 0;//自定义
+    Range = 1;//技能属性Range
+    Redius = 2;//技能属性Reduis
+    AfterField = 3;//技能属性AfterField
+    RangeEx = 4;//技能属性RangeEx
+}
+
+enum ECheckYType
+{
+    CheckAll = 0;//检测上下
+    CheckDown = 1;//检测下方
+    CheckUp = 2;//检测上方
+}
+message OutputItem
+{
+    optional EOutputType OutputType = 1;//输出类型
+    optional int32 Value = 2;   //对应ID
+    optional EOutputTime OutputTime = 3;
+    optional int32 OutputDelayTime = 4;//延迟输出ms
+    optional bool NotShow = 5;//不显示
+    optional Global_Int_Vector3 Offset = 6;//特效，子弹，陷阱偏移
+    optional int32 Angle = 7;//角度偏移
+}
+
+
+enum EOutputTime
+{
+    OnStart = 0;//开始时
+    OnEnd  = 1;//结束时
+    OnInterval = 2;//频率触发
+    OnBeTrigger= 3;//被触发时
+    OnDurExist = 4;//存在期间
+    OnFixedTime = 5;//固定的时间点触发
+    OnBeTriggerAndNotRemove = 6;//触发且没移除
+}
+
+
+enum EOutputType
+{
+    OptDamage = 0;//伤害公式
+    OptAttr = 1;//属性公式
+    OptBuff = 2;//Buff
+    OptEffect = 3;//特效
+    OptSkillFlag = 4;//技能标记
+    OptTrap = 5;//陷阱
+    OptHitMotion= 6;//被击效果
+    OptRandomTrap = 7;//随机陷阱
+    OptCamShake = 8;//镜头震动
+    OptBullet = 9;//子弹
+    OptMapItem = 10;//场景物件
+    OptTotalDamagePercent = 11;//总伤害百分比
+    OptEneryNum = 12;//技能能量
+}
+
+message skillnew_data
+{
+    optional int32 Id = 1;
+    optional string SkillName = 2;    //技能名字
+    optional uint32 SkillSound = 3;     //技能音效
+    optional ESkillType SkillType = 4;//技能类型
+    optional string SkillDescribe = 5;//技能描述
+    optional string SkillIconDescribe = 6;//Icon上的描述
+    optional string SkillIcon = 7;//Icon路径
+    optional int32 SkillRange = 8;//范围
+    optional int32 CollisoionRedius = 9;//半径
+    optional int32 AttackRangeAfterFired = 10;//技能释放后的范围
+    optional int32 AttackRangeEx = 11; //范围Ex
+    optional ETargetType SkillTargetType = 12;//技能锁敌目标类型
+    optional ETargetSelectType SelectTargetType = 13;//选择目标的逻辑
+    optional bool HaveRootmotion = 14;//是否有运动位移
+    repeated FrameEvent Evts = 15;//没有动作的技能输出
+    repeated SkillActionInfo SkillActionList = 16;//动作列表
+}
+
+enum ESkillType
+{
+    CommonSkill = 0;//普通技能
+    DodgeSkill = 1;//闪避技能
+    Attack = 2;//普攻
+    Passive = 3;//被动
+    Jump = 4;//跳跃
+}
+
+enum ETargetSelectType
+{
+    LowestHp = 0;//血量最低
+    HighestHp = 1;//血量最高
+}
+
+message SkillActionInfo
+{
+    optional int32 ActionTime = 1;//动作时长
+    optional int32 ActionStartPoint = 2;//动作开始点
+    optional string ActionPath = 3;//路径
+    optional int32 AnimCrossTime = 4;//与前一动作融合时间ms
+    optional EActionOverType ActionOverType = 5;//结束类型
+    optional EActionTriggerCondition TriggerActionCondition = 6;//触发条件
+    optional ESkillRangeType ActionRangeType = 7;//对应技能范围
+    optional int32 BackCD = 8;//返还CD
+    repeated FrameEvent FrameEvents = 9;//帧事件列表
+    repeated MotionInfo MotionInfos = 10;//运动坐标
+    repeated int32 MotionStartIndex = 11;//动作坐标起始点
+    optional int32 ActionSpeed = 12;//动作播放速度
+}
+
+enum EActionOverType
+{
+    EActionOverType_TimeOver = 0;//时间播完
+    EActionOverType_MoveOver = 1;//移动到终点
+    EActionOverType_ActOnDirKeyUp = 2;//方向键抬起时，主动结束技能
+    EActionOverType_MoveDirDifLookDir = 3;//非正前方移动（朝向和当前方向差45度以上）
+    EActionOverType_MoveDown = 4;//移动落地
+    EActionOverType_KeepingSkillBuffEnd = 5;//持续技能buff结束
+}
+
+enum EActionTriggerCondition
+{
+    ActConditionNone = 0;//无条件
+    TargetInAttackArea = 1;//范围内有目标
+}
+
+message MotionInfo
+{
+    optional int32 MotionTime = 1;//时间单位ms
+    optional int32 PosX = 2;//坐标单位mm
+    optional int32 PosY = 3;//坐标单位mm
+    optional int32 PosZ = 4;//坐标单位mm
+}
+
+enum EAttri
+{
+    Attri_BEGIN = 0;
+    Attri_Hp = 1;
+    Attri_MaxHp = 2;
+    Attri_HPRecoverBattle = 3;
+    Attri_MaxMp = 4;
+    Attri_Exp = 5;
+    Attri_ASpeed = 6;
+    Attri_MSpeed = 7;
+    Attri_Item = 8;
+}
+
+enum ESkillDirType
+{
+    SkillDirNone = 0;//不能转向
+    Slow = 1;//缓慢转向
+    Immediate = 2;//快速转向
+    MidSpeed = 3;//中速转向
+}
+
+message container
+{
+	optional string name = 1;
+	optional int32 build_id = 2;
+	map<int32,skillnew_data> infos = 3;
+}

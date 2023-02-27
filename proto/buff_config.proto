@@ -1,0 +1,131 @@
+syntax = "proto3";
+package buff_config;
+
+import "skillnew_config.proto";
+
+
+//(Buff)能触发条件
+enum EBuffTriggerCondition
+{
+    EBuffTriggerCondition_None = 0;
+    EBuffTriggerCondition_NotlnBattleState = 1;//脱战状态
+    EBuffTriggerCondition_InBattleState = 2;//非脱战状态
+    EBuffTriggerCondition_DirKeyDown =3;//方向键按下
+    EBuffTriggerCondition_ReleaseSkill =4;//释放技能时
+    EBuffTriggerCondition_BeAttack = 5;//被攻击时
+    EBuffTriggerCondition_SkillCombo =6;//技能连击次数达到多少
+    EBuffTriggerCondition_BuffAdditiveNum =7;//buff叠加达到多少
+    EBuffTriggerCondition_BuffStart = 8;//指定buff开始(改时间)
+    EBuffTriggerCondition_BeAttackAngle =9;//被击角度
+    EBuffTriggerCondition_EnterBuffState = 10;//buff状态检测
+    EBuffTriggerCondition_AttrMoreCheck = 11;//检测当前高于某属性百分比
+    EBuffTriggerCondition_AttrLessCheck =12;//检测当前低于某属性百分比
+    EBuffTriggerCondition_Attacking = 13;//攻击时
+    EBuffTriggerCondition_MoveForwardDirectCheck = 14;//向前移动时
+    EBuffTriggerCondition_SkillForwardDir = 15;//技能向前移动
+}
+enum ERepeatBuffAddType
+{
+    ERepeatBuffAddType_lgnore = 0;//不可叠加(忽略新的)
+    ERepeatBuffAddType_Add =1;//可曼加(只按id判断)
+    ERepeatBuffAddType_AddTime = 2;//不可叠加(累加新的buff时间)
+    ERepeatBuffAddType_FreshTime = 3;//不可加(刷新buff时间)
+    ERepeatBuffAddType_Replace =4;//不可加(替换成新的)
+}
+enum ERepeatBuffType
+{
+    ERepeatBuff_BuffType = 0;//按类型判断
+    ERepeatBuff_Buffld = 1;//按buffid判断
+}
+
+message over_type_data
+{
+    optional skillnew_config.EOverType OverType = 1;//结束方式
+    optional skillnew_config.EAttri AttrType = 2;//属性类型
+    optional int32 AttrValue = 3;//属性参数
+}
+message buff_data
+{
+    optional uint32 Id = 1;
+    optional string BuffName = 2;    //buff名
+    optional int32 BuffTime = 3;//buff时间ms
+    optional EBuffType BuffType = 4;//buff类型
+    optional outputattr_data outputattr = 5;//输出属性
+    optional buffskillattr_data outputskillAttr = 6;//输出技能属性
+    optional int32 BuffRate = 7;//buff作用频率(毫秒1次)
+    optional int32 BuffTriggerProbability = 8;//buff触发几率%(0,1001]
+    optional EBuffTriggerCondition BuffTriggerCondition =9; //buff触发条件
+    repeated skillnew_config.OutputItem BuffOutputs = 10;//buff输出
+    repeated skillnew_config.EEntityGameEvent BuffEndEvents = 11;//buff结束事件
+    repeated over_type_data BuffEndTypes = 12;//buff结束方式(至少一个)
+    repeated uint32 BuffStartEffects = 13;//buff开始特效
+    repeated uint32 BuffLoopEffects = 14;//buff循环特效
+    repeated uint32 BuffEndEffects = 15;//buff结束特效
+    repeated uint32 BufflntervalEffects = 16;//buff间隔特效
+    optional ERepeatBuffAddType BuffRepeatAddType = 17;//buff叠加类型
+    optional ERepeatBuffType RepeatBuffType = 18;//Buff叠加判定
+    repeated uint32 TransModel = 19;//buff可变模型
+    optional string ScriptName = 20;//buff特殊脚本
+    repeated int32 ScriptintParams = 21;//buff特殊脚本参数int型
+    repeated string ScriptStrParams = 22;//buff特殊脚本参数string型
+    optional bool CanBeClear = 23;//buff是否可被净化
+    optional bool lsControl = 24;//是否控制buff
+    optional string lcon = 25;//buff的lcon，若不显示，则不填
+    optional int32 ConditionParam1 = 26;//条件参数1
+    optional int32 ConditionParam2 = 27;//条件参数2
+    optional string ConditionParam3 =28;//多个条件参数
+    optional int32 AdditiveNum = 29;//叠加个数
+    optional int32 BuffNamelD = 30;//Buff名称ID(对应lanquage表)
+    optional int32 DescribelD = 31;//Buff描述ID(对应language表)
+    optional bool IsShow = 32;//是否显示表现和icon
+    optional bool IsDebuff = 33;//是否Debuff
+}
+
+enum EBuffType
+{
+    _BEGIN = 0;
+    shield = 1;//护盾
+    taunt = 2;//嘲讽
+    slowdown = 3;//降速
+    silent = 4;//沉默
+    vertigo = 5;//眩晕
+}
+
+enum EuffTriggerCondition
+{
+    EuffTriggerCondition_None = 0;
+    EuffTriggerCondition_NotInBattleState = 1;//脱战状态
+    EuffTriggerCondition_InBattleState = 2;//非脱战状态
+}
+
+message outputattr_data
+{
+    optional skillnew_config.EAttri EAttri = 1;    //属性类型
+    optional int32 AttrValue = 2;   //属性值(有上限)
+    optional EAttriEffectFormual AttriCalFormula = 3; //属性值计算公式
+    optional bool NeedParam = 4; //属性转换(表示百分比输入属性转换成属性 有上限)
+    optional skillnew_config.EAttri AttrTypeParam = 5; //输入属性类型
+    optional int32 AttrValueParam = 6;//属性参数
+}
+
+enum EAttriEffectFormual
+{
+    EAttriEffectFormual_Add = 0;//加
+    EAttriEffectFormual_MulAdd = 1;//加乘百分比
+    EAttriEffectFormual_AdditiveMulAdd = 2;//叠乘
+}
+
+message buffskillattr_data
+{
+    optional int32 skillAttrType = 1;//属性类型
+    optional int32 AttrValue = 2;//属性值
+    optional int32 DetialParam = 3;//作为属性参数
+    optional EAttriEffectFormual SkillAttriCalFormula = 4;//属性值计算公式
+}
+
+message container
+{
+	optional string name = 1;
+	optional int32 build_id = 2;
+	map<int32,buff_data> infos = 3;
+}

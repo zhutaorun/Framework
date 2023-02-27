@@ -32,7 +32,7 @@ using XLua;
 using UnityEditor;
 #endif
 
-namespace SDGame.UITools
+namespace GameFrame.UITools
 {
     /// <summary>
     /// 单个控件数据
@@ -376,7 +376,7 @@ namespace SDGame.UITools
             float span = Time.realtimeSinceStartup - time;
             if (span > 0.002f)
             {
-                Debug.LogWarningFormat("BindDataTo {0} 耗时{1}ms",ui.GetType().Name,span * 1000f);
+                Debug.LogWarningFormat("BindDataTo {0} 耗时{1}ms", uiGo.transform.name,span * 1000f);
             }
 #endif
         }

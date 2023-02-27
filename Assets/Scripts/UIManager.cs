@@ -1,9 +1,9 @@
-﻿using SDGame;
+﻿using GameFrame;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using SDGame.UITools;
+using GameFrame.UITools;
 using GameFrame;
 
 public class UIManager : SingletonMBAuto<UIManager>
