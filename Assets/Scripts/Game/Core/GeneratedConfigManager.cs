@@ -28,6 +28,7 @@ namespace GameFrame.Config
       }
           public IEnumerator CoLoadAllTable()
           {
+            yield return null;
           }
 #if LOAD_CONFIG_FROM_STREAMINGASSETS
           public void StartLoadAllTableFromStreamingAssets()
